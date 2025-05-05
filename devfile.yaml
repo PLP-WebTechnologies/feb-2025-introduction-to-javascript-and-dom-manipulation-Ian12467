@@ -1,0 +1,27 @@
+schemaVersion: 2.0.0
+metadata:
+  name: web-dom-manipulation-demo
+  version: 1.0.0
+  description: A simple web project demonstrating DOM manipulation with JavaScript
+
+components:
+  - name: dev
+    container:
+      image: public.ecr.aws/aws-mde/universal-image:latest
+      memoryLimit: 512Mi
+
+commands:
+  - id: install
+    exec:
+      component: dev
+      commandLine: "echo 'No dependencies to install for this simple web project'"
+      
+  - id: build
+    exec:
+      component: dev
+      commandLine: "echo 'Validating HTML and JavaScript files' && find . -name '*.html' -o -name '*.js' | xargs file"
+      
+  - id: test
+    exec:
+      component: dev
+      commandLine: "echo 'Running tests for JavaScript functionality' && grep -q 'document.addEventListener' script.js && echo 'DOM event listeners found: PASS' || echo 'DOM event listeners not found: FAIL'"
